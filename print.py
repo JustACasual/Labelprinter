@@ -4,21 +4,23 @@ import logging
 import subprocess
 import os
 
-def print_image(img_file, conf: dict):
+
+def print_image(img_file, config: dict):
     """Given a image file print the label"""
 
-    model = conf['model']
-    printer = conf['printer']
-    brother_ql_cmd= conf['brother_ql_cmd']
+    model = config['model']
+    printer = config['printer']
+    brother_ql_cmd = config['brother_ql_cmd']
     abs_img_path = os.path.abspath(img_file)
     # working command:
-    # brother_ql -m QL-500 -p usb://0x04f9:0x2015 print -l 29 C:\Users\the_b\labdoo_print\brother_ql_labdoo_tags_printer\img\device_tag.png -r 90
+    # brother_ql -m QL-500 -p usb://0x04f9:0x2015 print -l 29
+    # C:\Users\the_b\labdoo_print\brother_ql_labdoo_tags_printer\img\device_tag.png -r 90
 
     bash_command = brother_ql_cmd + " -m " + model + " -p " + printer + " print -l 29 " + abs_img_path
-    #+ " -r 90"
+    # + " -r 90" no rotation right now
     logging.info(bash_command)
 
-    subprocess.run(bash_command,  shell=True)
+    subprocess.run(bash_command, shell=True)
 
     print("")
     input("Press Enter key to continue next image")
@@ -39,7 +41,6 @@ if __name__ == '__main__':
         logging.info(str(conf_elem) + ": " + str(conf[conf_elem]))
     logging.info("current OS: " + os.name)
 
-
     try:
         # PNGs in root folder
         img_files = glob.glob("./*.png")
@@ -48,6 +49,6 @@ if __name__ == '__main__':
         for img in img_files:
             print_image(img, conf)
     except Exception as exc:
-        logging.error("image " + img + " could not be printed:")
+        logging.error("error:")
         logging.error(exc)
     logging.info("print job finished")
