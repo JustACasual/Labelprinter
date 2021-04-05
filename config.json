@@ -1,0 +1,5 @@
+{
+    "brother_ql_cmd" : "D:\\bin\\brother_ql",
+    "printer": "usb://0x04f9:0x2015",
+    "model": "QL-500"
+}
