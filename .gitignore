@@ -1,0 +1,9 @@
+.vscode/
+.idea/
+__pycache__
+env/
+
+*.csv
+*.log
+*.png
+*.PNG
